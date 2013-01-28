@@ -11,7 +11,7 @@ using WebMatrix.WebData;
 using PisiWeb.Filters;
 using PisiWeb.Models;
 using System.ServiceModel;
-using WebService1Contract;
+
 
 namespace PisiWeb.Controllers
 {
@@ -39,7 +39,6 @@ namespace PisiWeb.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                TestConnectToLocal();
                 return RedirectToLocal(returnUrl);
             }
             
@@ -48,14 +47,7 @@ namespace PisiWeb.Controllers
             return View(model);
         }
 
-        private void TestConnectToLocal()
-        {
-            var cf = new ChannelFactory<IProblemSolverChannel>("solver");
-            using (var ch = cf.CreateChannel())
-            {
-                int test = ch.AddNumbers(3, 4);
-            }
-        }
+       
 
         //
         // POST: /Account/LogOff
